@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup form by Rizwan Ali</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div class="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="reg()">Register</button>
+            </div>
+            <div class="social-icon">
+                <img src="./login-reg-img/fb.png">
+                <img src="./login-reg-img/tw.png">
+                <img src="./login-reg-img/gp.png">
+            </div>
+            <form id="login" class="input-group" onsubmit="return loginUser()">
+                <input type="text" id="loginUserId" class="input-field" placeholder="User Id" required>
+                <input type="password" id="loginPassword" class="input-field" placeholder="Password" required>
+                <input type="checkbox" class="checkbox"><span>Remember password</span>
+                <button type="submit" class="submit-btn">Log in</button>
+            </form>
+            <form id="register" class="input-group" onsubmit="return registerUser()">
+                <input type="text" id="registerUserId" class="input-field" placeholder="User Id" required>
+                <input type="email" id="registerEmail" class="input-field" placeholder="Email Id" required>
+                <input type="password" id="registerPassword" class="input-field" placeholder="Password" required>
+                <input type="checkbox" class="checkbox"><span>I agree to the terms & conditions</span>
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementsByClassName("btn");
+
+        function reg(){
+            x.style.left = "-400px";
+            y.style.left = "20px";
+            z[0].style.left = "110px";
+        }
+        
+        function login(){
+            x.style.left = "20px";
+            y.style.left = "450px";
+            z[0].style.left = "0px";
+        }
+        
+        function registerUser() {
+            var userId = document.getElementById("registerUserId").value;
+            var email = document.getElementById("registerEmail").value;
+            var password = document.getElementById("registerPassword").value;
+            
+            // Save to local storage
+            localStorage.setItem(userId, JSON.stringify({ email: email, password: password }));
+            
+            alert("Registration successful!");
+            return true;
+        }
+        
+        function loginUser() {
+        var userId = document.getElementById("loginUserId").value;
+        var password = document.getElementById("loginPassword").value;
+        
+        // Retrieve from local storage
+        var userData = localStorage.getItem(userId);
+        if (userData) {
+            userData = JSON.parse(userData);
+            if (userData.password === password) {
+                // Redirect to the specified website
+                window.location.href = "https://www.metro.pk/";
+                return false;
+            }
+        }
+        alert("Invalid credentials. Please try again.");
+        return true;
+    }
+    </script>
+</body>
+</html>
